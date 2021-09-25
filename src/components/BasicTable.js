@@ -1,4 +1,4 @@
-import React,{useMemo} from "react";
+import React,{useMemo,useEffect} from "react";
 import { useTable } from "react-table";
 import { COLUMNS } from "./column";
 import MOCK_DATA from "./MOCK_DATA.json";
@@ -9,7 +9,7 @@ const BasicTable = () => {
   const columns = useMemo(() => COLUMNS, []) ;
   const data    = useMemo(()=> MOCK_DATA,[]) ; 
 
-  const tableInstance = useTable({columns,data});
+  const tableInstance = useTable({columns,data}); 
 
   const {  // below are prorerties && functions required from react-table instance.
       getTableProps, // function
@@ -19,14 +19,21 @@ const BasicTable = () => {
       footerGroups,
       prepareRow
        } = tableInstance;
+
+       useEffect(() => {
+        console.log('TABLE-INSTANCE VALUE :',tableInstance);
+        console.log('HEADER-GROUPS VALUE :',headerGroups);
+        console.log('ROWS VALUE :',rows)
+     });
+     
        return (
         <>
           <table {...getTableProps()}>
             <thead>
-              {headerGroups.map(headerGroup => (
+              {headerGroups.map(headerGroup => ( 
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    <th {...column.getHeaderProps()} id={column.id}>{column.render('Header')}</th>
                   ))}
                 </tr>
               ))}
@@ -35,9 +42,9 @@ const BasicTable = () => {
               {rows.map(row => {
                 prepareRow(row)
                 return (
-                  <tr {...row.getRowProps()}>
+                  <tr {...row.getRowProps()} id={row.values.first_name}>
                     {row.cells.map(cell => {
-                      return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      return <td {...cell.getCellProps()} key={cell.column.id}>{cell.render('Cell')}</td>
                       /* it picks up the data for each column for each row && render here */
                     })}
                   </tr>

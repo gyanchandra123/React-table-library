@@ -25,3 +25,7 @@ table th, tfoot td {
   background-color: #4caf50;
   color: white;
 }
+
+#first_name {
+  color: red;
+}
