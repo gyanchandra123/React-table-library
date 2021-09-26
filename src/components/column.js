@@ -1,3 +1,4 @@
+import {format} from 'date-fns'
 export const COLUMNS = [
   { Header: "Id", accessor: "id", Footer: "Id" },
   { Header: "first Name", accessor: "first_name", Footer: "first Name" },
@@ -6,6 +7,10 @@ export const COLUMNS = [
     Header: "Date of Birth",
     accessor: "date_of_birth",
     Footer: "Date of Birth",
+    Cell: ({ value }) => {  // it transform the raw values of column
+      return format(new Date(value), 'dd/MM/yyyy') // here new date() is used to convert the string date format to date object
+    }
+
   },
   { Header: "Country", accessor: "country", Footer: "Country" },
   { Header: "Phone", accessor: "phone", Footer: "Phone" },
