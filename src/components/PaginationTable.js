@@ -12,7 +12,7 @@ const PaginationTable = () => {
     { columns, data, initialState: { pageIndex: 2 } },
     usePagination
   );
-// initialState : allow us to jump to a particular page on initial page -reload.
+  // initialState : allow us to jump to a particular page on initial page -reload.
   const {
     // below are prorerties && functions required from react-table instance.
     getTableProps, // function
@@ -25,14 +25,12 @@ const PaginationTable = () => {
     canPreviousPage,
     canNextPage,
     gotoPage,
-    pageCount, 
+    pageCount,
     pageOptions,
     setPageSize,
     state,
     prepareRow,
   } = tableInstance;
-
-
 
   const { pageIndex, pageSize } = state;
 
@@ -75,12 +73,12 @@ const PaginationTable = () => {
         </tbody>
       </table>
       <div>
-      <span>
-        Page{" "}
-        <strong>
-          {pageIndex + 1} of {pageOptions.length}
-        </strong>{" "}
-      </span>
+        <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </span>
 
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {"<<"}
@@ -99,6 +97,18 @@ const PaginationTable = () => {
             style={{ width: "50px" }}
           />
         </span>
+
+        {/* DECIDE THE PAGE SIZE : */}
+        <select // for page size choice
+          value={pageSize}
+          onChange={(e) => setPageSize(Number(e.target.value))}
+        >
+          {[10, 25, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
 
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           previous
