@@ -4,13 +4,18 @@ import { COLUMNS, } from "./column";
 import GlobalFilter from "./GlobalFilter";
 import MOCK_DATA from "./MOCK_DATA.json";
 import './table.css';
+import { ColumnFilter } from "./ColumnFilter";
+
 
 const FilteringTable = () => {
 
   const columns = useMemo(() => COLUMNS, []) ;
   const data    = useMemo(()=> MOCK_DATA,[]) ; 
+  const defaultColumn = useMemo(
+    ()=> ({Filter: ColumnFilter}),  
+    [])
 
-  const tableInstance = useTable({columns,data},useFilters,useGlobalFilter); 
+  const tableInstance = useTable({columns,data,defaultColumn},useFilters,useGlobalFilter); 
 
   const {  // below are prorerties && functions required from react-table instance.
       getTableProps, // function
