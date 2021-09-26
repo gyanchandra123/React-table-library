@@ -8,8 +8,11 @@ const PaginationTable = () => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => MOCK_DATA, []);
 
-  const tableInstance = useTable({ columns, data }, usePagination);
-
+  const tableInstance = useTable(
+    { columns, data, initialState: { pageIndex: 2 } },
+    usePagination
+  );
+// initialState : allow us to jump to a particular page on initial page -reload.
   const {
     // below are prorerties && functions required from react-table instance.
     getTableProps, // function
@@ -21,6 +24,10 @@ const PaginationTable = () => {
     previousPage,
     canPreviousPage,
     canNextPage,
+    gotoPage,
+    pageCount,
+    pageIndex,
+    pageOptions,
     prepareRow,
   } = tableInstance;
 
@@ -63,8 +70,41 @@ const PaginationTable = () => {
         </tbody>
       </table>
       <div>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>previous</button>
-        <button onClick={() => nextPage()} disabled={!canNextPage}>next</button>
+      <span>
+        Page{" "}
+        <strong>
+          {pageIndex + 1} of {pageOptions.length}
+        </strong>{" "}
+      </span>
+
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          {"<<"}
+        </button>
+        <span>
+          | Go to page:{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const pageNumber = e.target.value
+                ? Number(e.target.value) - 1
+                : 0;
+              gotoPage(pageNumber);
+            }}
+            style={{ width: "50px" }}
+          />
+        </span>
+
+        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          previous
+        </button>
+
+        <button onClick={() => nextPage()} disabled={!canNextPage}>
+          next
+        </button>
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+          {">>"}
+        </button>
       </div>
     </>
   );
