@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import PaginationTable from './components/PaginationTable';
+import RowSelection from './components/RowSelection';
 
 function App() {
   return (
     <div className="App">
-       <PaginationTable></PaginationTable> 
+       <RowSelection></RowSelection> 
     </div>
   );
 }
