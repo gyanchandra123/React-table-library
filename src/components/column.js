@@ -1,19 +1,20 @@
-import {format} from 'date-fns'
+import {format} from 'date-fns';
+import  {ColumnFilter} from './ColumnFilter'
 export const COLUMNS = [
-  { Header: "Id", accessor: "id", Footer: "Id" },
-  { Header: "first Name", accessor: "first_name", Footer: "first Name" },
-  { Header: "last  Name", accessor: "last_name", Footer: "last  Name" },
+  { Header: "Id", accessor: "id", Footer: "Id",Filter:ColumnFilter },
+  { Header: "first Name", accessor: "first_name", Footer: "first Name",Filter:ColumnFilter },
+  { Header: "last  Name", accessor: "last_name", Footer: "last  Name",Filter:ColumnFilter },
   {
     Header: "Date of Birth",
     accessor: "date_of_birth",
     Footer: "Date of Birth",
     Cell: ({ value }) => {  // it transform the raw values of column
       return format(new Date(value), 'dd/MM/yyyy') // here new date() is used to convert the string date format to date object
-    }
-
+    },
+    Filter:ColumnFilter 
   },
-  { Header: "Country", accessor: "country", Footer: "Country" },
-  { Header: "Phone", accessor: "phone", Footer: "Phone" },
+  { Header: "Country", accessor: "country", Footer: "Country",Filter:ColumnFilter },
+  { Header: "Phone", accessor: "phone", Footer: "Phone",Filter:ColumnFilter },
 ];
 
 /* export const GROUPED_COLUMNS = [
