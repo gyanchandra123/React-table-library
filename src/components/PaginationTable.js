@@ -25,11 +25,16 @@ const PaginationTable = () => {
     canPreviousPage,
     canNextPage,
     gotoPage,
-    pageCount,
-    pageIndex,
+    pageCount, 
     pageOptions,
+    setPageSize,
+    state,
     prepareRow,
   } = tableInstance;
+
+
+
+  const { pageIndex, pageSize } = state;
 
   useEffect(() => {
     console.log("TABLE-INSTANCE VALUE :", tableInstance);
